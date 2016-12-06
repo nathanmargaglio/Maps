@@ -33,6 +33,7 @@ function initMap() {
 
         var rec = $.getJSON("http://52.206.157.186/get/"+id.toString())
         console.log(rec)
+        console.log("GETTING")
         var tile = new google.maps.Polygon({
           paths: hexCoords,
           strokeColor: '#FF0000',
