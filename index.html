@@ -4,14 +4,36 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Simple Polygon</title>
+    <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
+        #main{
+            height: 100%;
+            width: 100%;
+            display: table;
+            margin: 0;
+            padding: 0;
+        }
+        #info{
+            white-space: pre;
+        }
       #map {
         height: 100%;
       }
+      #hud-cont{
+        display: table-row;
+      }
+      #hud {
+        display: table-cell;
+        width: 100%;
+        background-color: lightgrey;
+        text-align: center;
+        vertical-align: middle;
+      }
       /* Optional: Makes the sample page fill the window. */
       html, body {
+        font-family: 'Bungee', cursive;
         height: 100%;
         margin: 0;
         padding: 0;
@@ -20,7 +42,18 @@
     </style>
 </head>
 <body>
-<div id="map"></div>
+
+<div id="main">
+    <div id="map"></div>
+    <div id="hud-cont">
+        <div id="hud">
+            <span id="info">
+                Select a hexatile.
+            </span>
+        </div>
+    </div>
+</div>
+
 <script src="js/main.js"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw_m3nQkGSooqMn1uYaCFWZR_mUMLEOYU&callback=initMap">

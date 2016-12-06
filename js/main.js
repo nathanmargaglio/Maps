@@ -1,14 +1,17 @@
 // This example creates a simple polygon representing the Bermuda Triangle.
 hexes = [];
+var info = document.getElementById("info");
+
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
+      zoom: 11,
       center: {lat: 42.959, lng: -78.84},
       mapTypeId: 'terrain'
       //makeHex(42.896981, -78.888351, 0.001);
     });
 
     map.addListener('center_changed', function(){
+        info.innerHTML = "Select another tile."
         for (i = 0; i < hexes.length; ++i){
             hexes[i].setOptions({fillColor: '#FF0000'});
         };
@@ -39,9 +42,13 @@ function initMap() {
         tile.id = id;
         tile.center = {lat: x0, lng: y0};
         tile.addListener('click', function(){
-            map.setZoom(14);
+            map.setZoom(13);
             map.setCenter(this.center);
-            //this.setMap(null);
+            //this.setMap(null); //removes the tile from the map
+            var txt = "You've selected tile " + this.id + ".\n";
+            txt += "Center: " + this.center['lat'].toString().substring(0,5);
+            txt += ", " + this.center['lng'].toString().substring(0,6);
+            info.innerHTML = txt;
             this.setOptions({fillColor: '#9999ff'})
         });
         hexes.push(tile);
