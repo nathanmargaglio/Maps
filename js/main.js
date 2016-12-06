@@ -4,7 +4,7 @@ var info = document.getElementById("info");
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 11,
+      zoom: 10,
       center: {lat: 42.959, lng: -78.84},
       mapTypeId: 'terrain'
       //makeHex(42.896981, -78.888351, 0.001);
@@ -31,6 +31,8 @@ function initMap() {
             hexCoords.push({lat: x, lng: y});
         }
 
+        var rec = $.getJSON("http://52.206.157.186/get/"+id.toString())
+        console.log(rec)
         var tile = new google.maps.Polygon({
           paths: hexCoords,
           strokeColor: '#FF0000',
@@ -42,7 +44,7 @@ function initMap() {
         tile.id = id;
         tile.center = {lat: x0, lng: y0};
         tile.addListener('click', function(){
-            map.setZoom(13);
+            map.setZoom(12);
             map.setCenter(this.center);
             //this.setMap(null); //removes the tile from the map
             var txt = "You've selected tile " + this.id + ".\n";
