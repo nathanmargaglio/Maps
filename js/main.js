@@ -11,7 +11,7 @@ function initMap() {
     });
 
     map.addListener('center_changed', function(){
-        info.innerHTML = "Select another tile."
+        //info.innerHTML = "Select another tile."
         for (i = 0; i < hexes.length; ++i){
             hexes[i].setOptions({fillColor: '#FF0000'});
         };
