@@ -13,7 +13,7 @@ function initMap() {
     map.addListener('center_changed', function(){
         //info.innerHTML = "Select another tile."
         for (i = 0; i < hexes.length; ++i){
-            hexes[i].setOptions({fillColor: '#FF0000'});
+            hexes[i].setOptions({fillColor: hexes[i].defaultColor});
         };
     });
 
@@ -31,9 +31,6 @@ function initMap() {
             hexCoords.push({lat: x, lng: y});
         }
 
-        var rec = $.getJSON("http://52.206.157.186/get/"+id.toString())
-        console.log(rec)
-        console.log("GETTING")
         var tile = new google.maps.Polygon({
           paths: hexCoords,
           strokeColor: '#FF0000',
@@ -42,17 +39,30 @@ function initMap() {
           fillColor: '#FF0000',
           fillOpacity: 0.35
         });
-        tile.id = id;
+
+        var rec = $.getJSON("http://localhost/get/"+id.toString(), function(json){
+            tile.id = id;
+            tile.health = json['health'];
+            tile.name = json['name'];
+            tile.team = json['team'];
+
+            if (tile.team == 'red'){
+                tile.defaultColor = '#FF0000';
+                tile.setOptions({fillColor: '#FF0000'})
+            }else{
+                tile.defaultColor = '#9999FF';
+                tile.setOptions({fillColor: '#9999FF'})
+            }
+        })
         tile.center = {lat: x0, lng: y0};
         tile.addListener('click', function(){
             map.setZoom(12);
             map.setCenter(this.center);
             //this.setMap(null); //removes the tile from the map
-            var txt = "You've selected tile " + this.id + ".\n";
-            txt += "Center: " + this.center['lat'].toString().substring(0,5);
-            txt += ", " + this.center['lng'].toString().substring(0,6);
+            var txt = "You've selected  " + this.name + ".\n";
+            txt += "Health: " + this.health
             info.innerHTML = txt;
-            this.setOptions({fillColor: '#9999ff'})
+            this.setOptions({fillColor: '#B4F0AC'})
         });
         hexes.push(tile);
         tile.setMap(map);
